@@ -5,6 +5,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>ThoughtPilot AI — LinkedIn Co-Pilot for Professionals</title>
 <meta name="description" content="ThoughtPilot AI turns your experience into authority-grade LinkedIn content. Post generation, trend radar, CV analysis, and more — trained on your voice." />
+<!-- Open Graph -->
+<meta property="og:type"        content="website" />
+<meta property="og:url"         content="https://thoughtpilotai.com/" />
+<meta property="og:title"       content="ThoughtPilot AI — LinkedIn Co-Pilot for Professionals" />
+<meta property="og:description" content="Turn your experience into authority-grade LinkedIn content. Trained on your voice, fueled by live industry trends." />
+<meta property="og:image"       content="https://thoughtpilotai.com/og-image.png" />
+<!-- Twitter / X -->
+<meta name="twitter:card"        content="summary_large_image" />
+<meta name="twitter:title"       content="ThoughtPilot AI — LinkedIn Co-Pilot" />
+<meta name="twitter:description" content="Turn your experience into authority-grade LinkedIn content in minutes." />
+<meta name="twitter:image"       content="https://thoughtpilotai.com/og-image.png" />
+<!-- PWA -->
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="theme-color" content="#0A0F1E" />
+<link rel="manifest" href="/manifest.json" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
@@ -68,6 +83,39 @@ nav {
 .nav-links a { font-size: 14px; color: var(--text-secondary); text-decoration: none; transition: color 0.2s; }
 .nav-links a:hover { color: var(--text-primary); }
 .nav-actions { display: flex; align-items: center; gap: 12px; }
+.hamburger {
+  display: none; flex-direction: column; gap: 5px; cursor: pointer;
+  padding: 6px; background: none; border: none;
+}
+.hamburger span {
+  display: block; width: 22px; height: 2px;
+  background: var(--text-primary); border-radius: 2px;
+  transition: all 0.3s ease;
+}
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+.mobile-drawer {
+  display: none; position: fixed; top: 68px; left: 0; right: 0;
+  background: rgba(10,15,30,0.98); backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--navy-border);
+  padding: 20px 24px; z-index: 99;
+  flex-direction: column; gap: 4px;
+  transform: translateY(-10px); opacity: 0;
+  transition: all 0.25s ease;
+}
+.mobile-drawer.open { transform: translateY(0); opacity: 1; }
+.mobile-drawer a {
+  display: block; padding: 12px 8px; font-size: 16px;
+  color: var(--text-secondary); text-decoration: none;
+  border-bottom: 1px solid var(--navy-border); transition: color 0.2s;
+}
+.mobile-drawer a:last-of-type { border-bottom: none; }
+.mobile-drawer a:hover { color: var(--text-primary); }
+.mobile-drawer-cta {
+  margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--navy-border);
+  display: flex; flex-direction: column; gap: 10px;
+}
 .btn-ghost {
   padding: 8px 18px; border-radius: var(--radius-sm);
   border: 1px solid var(--navy-border); background: transparent;
@@ -335,10 +383,67 @@ section { padding: var(--sp) 24px; }
 .trole { font-size: 12px; color: var(--text-muted); }
 
 /* FAQ */
-.faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 56px; }
-.faq-item { background: var(--navy-card); border: 1px solid var(--navy-border); border-radius: var(--radius-md); padding: 28px; }
-.faq-q { font-size: 15px; font-weight: 600; margin-bottom: 12px; font-family: var(--font-display); line-height: 1.4; }
-.faq-a { font-size: 14px; color: var(--text-secondary); line-height: 1.7; font-weight: 300; }
+.faq-grid { display: flex; flex-direction: column; gap: 8px; margin-top: 56px; max-width: 760px; margin-left: auto; margin-right: auto; }
+.faq-item {
+  background: var(--navy-card); border: 1px solid var(--navy-border);
+  border-radius: var(--radius-md); overflow: hidden;
+  transition: border-color 0.2s;
+}
+.faq-item:hover { border-color: var(--navy-border-hover); }
+.faq-item.open { border-color: rgba(45,212,191,0.2); }
+.faq-q {
+  font-size: 15px; font-weight: 600; font-family: var(--font-display);
+  line-height: 1.4; padding: 22px 24px; cursor: pointer;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  user-select: none;
+}
+.faq-q::after {
+  content: '+'; font-size: 20px; font-weight: 300; color: var(--accent);
+  flex-shrink: 0; transition: transform 0.25s ease; line-height: 1;
+}
+.faq-item.open .faq-q::after { transform: rotate(45deg); }
+.faq-a {
+  font-size: 14px; color: var(--text-secondary); line-height: 1.7;
+  font-weight: 300; padding: 0 24px; max-height: 0; overflow: hidden;
+  transition: max-height 0.35s ease, padding 0.35s ease;
+}
+.faq-item.open .faq-a { max-height: 300px; padding: 0 24px 22px; }
+
+/* Sticky CTA bar */
+.sticky-cta {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 90;
+  background: rgba(10,15,30,0.96); backdrop-filter: blur(20px);
+  border-top: 1px solid var(--navy-border);
+  padding: 12px 32px; display: flex; align-items: center;
+  justify-content: space-between; gap: 16px;
+  transform: translateY(100%); transition: transform 0.35s ease;
+}
+.sticky-cta.visible { transform: translateY(0); }
+.sticky-cta-text { font-size: 14px; color: var(--text-secondary); }
+.sticky-cta-text strong { color: var(--text-primary); }
+.sticky-cta-actions { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.sticky-cta-close {
+  background: none; border: none; color: var(--text-muted);
+  cursor: pointer; font-size: 18px; padding: 2px 6px; line-height: 1;
+  transition: color 0.2s;
+}
+.sticky-cta-close:hover { color: var(--text-primary); }
+@media (max-width: 600px) {
+  .sticky-cta { flex-direction: column; gap: 10px; padding: 14px 20px; }
+  .sticky-cta-text { text-align: center; font-size: 13px; }
+}
+
+/* Scroll animations */
+.fade-up {
+  opacity: 0; transform: translateY(24px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+.fade-up.delay-1 { transition-delay: 0.08s; }
+.fade-up.delay-2 { transition-delay: 0.16s; }
+.fade-up.delay-3 { transition-delay: 0.24s; }
+.fade-up.delay-4 { transition-delay: 0.32s; }
+.fade-up.delay-5 { transition-delay: 0.40s; }
 
 /* CTA */
 .cta-section { text-align: center; position: relative; overflow: hidden; padding: 120px 24px; }
@@ -367,6 +472,8 @@ footer { border-top: 1px solid var(--navy-border); padding: 60px 24px 40px; }
 @media (max-width: 900px) {
   nav { padding: 0 24px; }
   .nav-links { display: none; }
+  .hamburger { display: flex; }
+  .mobile-drawer { display: flex; }
   .features-grid { grid-template-columns: 1fr; }
   .fc-lg { grid-column: span 1; }
   .how-steps { grid-template-columns: 1fr; }
@@ -379,7 +486,9 @@ footer { border-top: 1px solid var(--navy-border); padding: 60px 24px 40px; }
   .faq-grid { grid-template-columns: 1fr; }
   .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
   .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
-  .hero-product { display: none; }
+  .hero-product { max-width: 100%; margin-top: 40px; }
+  .pbody { grid-template-columns: 1fr; }
+  .pstat, .ptrend { display: none; }
 }
 @media (max-width: 600px) {
   :root { --sp: 72px; }
@@ -404,10 +513,25 @@ footer { border-top: 1px solid var(--navy-border); padding: 60px 24px 40px; }
     <a href="#faq">FAQ</a>
   </div>
   <div class="nav-actions">
-    <a href="https://app.thoughtpilotai.com/login" class="btn-ghost">Sign in</a>
-    <a href="https://app.thoughtpilotai.com/signup?plan=free" class="btn-primary">Get started free →</a>
+    <a href="https://app.thoughtpilotai.com/login" class="btn-ghost" id="nav-signin">Sign in</a>
+    <a href="https://app.thoughtpilotai.com/signup?plan=free" class="btn-primary" id="nav-signup">Get started free →</a>
+    <button class="hamburger" id="hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
+
+<!-- Mobile drawer -->
+<div class="mobile-drawer" id="mobile-drawer">
+  <a href="#features"     onclick="closeDrawer()">Features</a>
+  <a href="#how-it-works" onclick="closeDrawer()">How it works</a>
+  <a href="#pricing"      onclick="closeDrawer()">Pricing</a>
+  <a href="#faq"          onclick="closeDrawer()">FAQ</a>
+  <div class="mobile-drawer-cta">
+    <a href="https://app.thoughtpilotai.com/signup?plan=free" class="btn-hp" style="display:block;text-align:center;">Start for free →</a>
+    <a href="https://app.thoughtpilotai.com/login" class="btn-hg" style="display:block;text-align:center;">Sign in</a>
+  </div>
+</div>
 
 <!-- HERO -->
 <section class="hero">
@@ -489,11 +613,11 @@ footer { border-top: 1px solid var(--navy-border); padding: 60px 24px 40px; }
   <div class="container">
     <div class="features-header">
       <p class="section-label">The product</p>
-      <h2 class="section-title">One control tower for your entire LinkedIn presence.</h2>
+      <h2 class="section-title fade-up">One control tower for your entire LinkedIn presence.</h2>
       <p class="section-sub">Eight tools, one workflow. Posts, comments, CV, profile, and job match — all trained on your voice.</p>
     </div>
     <div class="features-grid">
-      <div class="fc fc-lg">
+      <div class="fc fade-up fc-lg">
         <div class="fc-icon t">✍️</div>
         <span class="fc-tag">Core · Post Generator</span>
         <h3 class="fc-title">Posts in your voice — not generic AI output</h3>
@@ -543,20 +667,20 @@ footer { border-top: 1px solid var(--navy-border); padding: 60px 24px 40px; }
 <section id="how-it-works">
   <div class="container">
     <p class="section-label">The workflow</p>
-    <h2 class="section-title">From everyday work to industry authority — in three steps.</h2>
+    <h2 class="section-title fade-up">From everyday work to industry authority — in three steps.</h2>
     <p class="section-sub">No content strategy degree needed. No hours lost staring at a blank page.</p>
     <div class="how-steps">
-      <div class="how-step">
+      <div class="how-step fade-up">
         <div class="step-num">01</div>
         <h3 class="step-title">Train it on you</h3>
         <p class="step-desc">Add your role, industry, goals, and tone — whether that's grad student, junior dev, marketing lead, or VP. ThoughtPilot learns your voice from your profile and a short onboarding. No generic output, ever.</p>
       </div>
-      <div class="how-step">
+      <div class="how-step fade-up">
         <div class="step-num">02</div>
         <h3 class="step-title">Pick a pillar, hit generate</h3>
         <p class="step-desc">Choose from 8 universal content pillars — career, skills, story, build-in-public, industry takes, and more. The co-pilot drafts a post grounded in live trends and your goals. Every draft is scored for voice match before it reaches you.</p>
       </div>
-      <div class="how-step">
+      <div class="how-step fade-up">
         <div class="step-num">03</div>
         <h3 class="step-title">Approve, schedule, repeat</h3>
         <p class="step-desc">Review in the queue, tweak if needed, send to LinkedIn. The calendar handles cadence; analytics handles the scoreboard. You stay in control — no surprise auto-posts, ever.</p>
@@ -569,17 +693,17 @@ footer { border-top: 1px solid var(--navy-border); padding: 60px 24px 40px; }
 <section id="pillars" style="padding-top:0">
   <div class="container">
     <p class="section-label">8 Content Pillars</p>
-    <h2 class="section-title">Built around how ambitious people actually post.</h2>
+    <h2 class="section-title fade-up">Built around how ambitious people actually post.</h2>
     <p class="section-sub">Every generated post starts inside a pillar — so your feed reads as a consistent point of view, not random AI output.</p>
     <div class="pillars-grid">
-      <div class="pillar-card"><span class="pillar-emoji">🚀</span><div class="pillar-name">Career Growth</div><div class="pillar-desc">Promotions, pivots, and the lessons that actually moved your career forward.</div><div class="pillar-num">Pillar 01</div></div>
-      <div class="pillar-card"><span class="pillar-emoji">💼</span><div class="pillar-name">Job Hunt &amp; Hiring</div><div class="pillar-desc">Applications, interviews, offers — make recruiters slide into your DMs.</div><div class="pillar-num">Pillar 02</div></div>
-      <div class="pillar-card"><span class="pillar-emoji">🎓</span><div class="pillar-name">Student Life</div><div class="pillar-desc">Internships, side projects, and building a brand before graduation.</div><div class="pillar-num">Pillar 03</div></div>
-      <div class="pillar-card"><span class="pillar-emoji">🧠</span><div class="pillar-name">Skills &amp; Learning</div><div class="pillar-desc">What you learned this week — courses, certs, books, and frameworks.</div><div class="pillar-num">Pillar 04</div></div>
-      <div class="pillar-card"><span class="pillar-emoji">🛠️</span><div class="pillar-name">Build in Public</div><div class="pillar-desc">Projects, launches, side hustles, and the messy middle of shipping.</div><div class="pillar-num">Pillar 05</div></div>
-      <div class="pillar-card"><span class="pillar-emoji">💡</span><div class="pillar-name">Industry Takes</div><div class="pillar-desc">Hot takes on news shaping your field — fueled by the live trend radar.</div><div class="pillar-num">Pillar 06</div></div>
-      <div class="pillar-card"><span class="pillar-emoji">🤝</span><div class="pillar-name">Leadership &amp; Teams</div><div class="pillar-desc">Managing up, leading peers, and the soft skills no one teaches.</div><div class="pillar-num">Pillar 07</div></div>
-      <div class="pillar-card"><span class="pillar-emoji">🌱</span><div class="pillar-name">Personal Story</div><div class="pillar-desc">Wins, failures, mentors — the human posts that travel furthest.</div><div class="pillar-num">Pillar 08</div></div>
+      <div class="pillar-card fade-up"><span class="pillar-emoji">🚀</span><div class="pillar-name">Career Growth</div><div class="pillar-desc">Promotions, pivots, and the lessons that actually moved your career forward.</div><div class="pillar-num">Pillar 01</div></div>
+      <div class="pillar-card fade-up"><span class="pillar-emoji">💼</span><div class="pillar-name">Job Hunt &amp; Hiring</div><div class="pillar-desc">Applications, interviews, offers — make recruiters slide into your DMs.</div><div class="pillar-num">Pillar 02</div></div>
+      <div class="pillar-card fade-up"><span class="pillar-emoji">🎓</span><div class="pillar-name">Student Life</div><div class="pillar-desc">Internships, side projects, and building a brand before graduation.</div><div class="pillar-num">Pillar 03</div></div>
+      <div class="pillar-card fade-up"><span class="pillar-emoji">🧠</span><div class="pillar-name">Skills &amp; Learning</div><div class="pillar-desc">What you learned this week — courses, certs, books, and frameworks.</div><div class="pillar-num">Pillar 04</div></div>
+      <div class="pillar-card fade-up"><span class="pillar-emoji">🛠️</span><div class="pillar-name">Build in Public</div><div class="pillar-desc">Projects, launches, side hustles, and the messy middle of shipping.</div><div class="pillar-num">Pillar 05</div></div>
+      <div class="pillar-card fade-up"><span class="pillar-emoji">💡</span><div class="pillar-name">Industry Takes</div><div class="pillar-desc">Hot takes on news shaping your field — fueled by the live trend radar.</div><div class="pillar-num">Pillar 06</div></div>
+      <div class="pillar-card fade-up"><span class="pillar-emoji">🤝</span><div class="pillar-name">Leadership &amp; Teams</div><div class="pillar-desc">Managing up, leading peers, and the soft skills no one teaches.</div><div class="pillar-num">Pillar 07</div></div>
+      <div class="pillar-card fade-up"><span class="pillar-emoji">🌱</span><div class="pillar-name">Personal Story</div><div class="pillar-desc">Wins, failures, mentors — the human posts that travel furthest.</div><div class="pillar-num">Pillar 08</div></div>
     </div>
   </div>
 </section>
@@ -662,10 +786,10 @@ footer { border-top: 1px solid var(--navy-border); padding: 60px 24px 40px; }
 <section>
   <div class="container">
     <p class="section-label">Social proof</p>
-    <h2 class="section-title">Professionals who made the switch.</h2>
+    <h2 class="section-title fade-up">Professionals who made the switch.</h2>
     <p class="section-sub">Real results from real people who stopped staring at a blank post box.</p>
     <div class="tgrid">
-      <div class="tcard tfeat">
+      <div class="tcard tfeat fade-up">
         <div class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
         <div class="qmark">"</div>
         <div class="ttext">I went from posting once a quarter to three times a week — and they actually sound like me. Two of my last posts landed me intros to people I'd been trying to reach for years.</div>
@@ -674,7 +798,7 @@ footer { border-top: 1px solid var(--navy-border); padding: 60px 24px 40px; }
           <div><div class="tname">Muhammad Okasha</div><div class="trole">Procurement &amp; Logistics Specialist · Dubai</div></div>
         </div>
       </div>
-      <div class="tcard">
+      <div class="tcard fade-up">
         <div class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
         <div class="qmark">"</div>
         <div class="ttext">The trend radar is genuinely useful. I posted a take on a supply chain disruption before anyone in my network — it got 3× my usual engagement and two recruiter messages the same day.</div>
@@ -683,7 +807,7 @@ footer { border-top: 1px solid var(--navy-border); padding: 60px 24px 40px; }
           <div><div class="tname">Sofia Ramos</div><div class="trole">Supply Chain Manager · Amsterdam</div></div>
         </div>
       </div>
-      <div class="tcard">
+      <div class="tcard fade-up">
         <div class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
         <div class="qmark">"</div>
         <div class="ttext">As a student with no work experience, I didn't think LinkedIn was for me. ThoughtPilot helped me post about my projects in a way recruiters noticed — I landed my first internship through a DM.</div>
@@ -692,7 +816,7 @@ footer { border-top: 1px solid var(--navy-border); padding: 60px 24px 40px; }
           <div><div class="tname">Amir Khalil</div><div class="trole">Engineering Student · Berlin</div></div>
         </div>
       </div>
-      <div class="tcard">
+      <div class="tcard fade-up">
         <div class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
         <div class="qmark">"</div>
         <div class="ttext">The CV match feature saved me hours. I pasted 5 job descriptions, got a clear gap analysis, and rewrote my CV in an afternoon. Three first-round interviews that same week.</div>
@@ -701,7 +825,7 @@ footer { border-top: 1px solid var(--navy-border); padding: 60px 24px 40px; }
           <div><div class="tname">Priya Nair</div><div class="trole">Product Manager · London</div></div>
         </div>
       </div>
-      <div class="tcard">
+      <div class="tcard fade-up">
         <div class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
         <div class="qmark">"</div>
         <div class="ttext">I was skeptical about AI-written content. But it genuinely sounds like me — the voice match score isn't marketing fluff. My team actually asks if I hired a ghostwriter now.</div>
@@ -710,7 +834,7 @@ footer { border-top: 1px solid var(--navy-border); padding: 60px 24px 40px; }
           <div><div class="tname">Lucas Martin</div><div class="trole">Founder &amp; CEO · Paris</div></div>
         </div>
       </div>
-      <div class="tcard">
+      <div class="tcard fade-up">
         <div class="stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
         <div class="qmark">"</div>
         <div class="ttext">The content calendar changed how I approach LinkedIn entirely. Instead of posting randomly when inspired, I have a plan. My follower growth went from flat to +200 a month.</div>
@@ -727,16 +851,16 @@ footer { border-top: 1px solid var(--navy-border); padding: 60px 24px 40px; }
 <section id="faq">
   <div class="container">
     <p class="section-label">FAQ</p>
-    <h2 class="section-title">Questions, answered.</h2>
+    <h2 class="section-title fade-up">Questions, answered.</h2>
     <div class="faq-grid">
-      <div class="faq-item"><div class="faq-q">Who is ThoughtPilot built for?</div><div class="faq-a">Anyone serious about LinkedIn — students hunting their first internship, grads applying for jobs, engineers, designers, founders, marketers, PMs, consultants, recruiters, and senior leaders. If you have a career or you're building one, this is for you.</div></div>
-      <div class="faq-item"><div class="faq-q">How is this different from ChatGPT?</div><div class="faq-a">ChatGPT writes generic posts. ThoughtPilot is trained on your role, industry, goals, and live trends — so output sounds like you on your best day, not a copywriter who's never met you. We score every draft for voice match before you approve.</div></div>
-      <div class="faq-item"><div class="faq-q">I'm a student with no work experience. Will it work?</div><div class="faq-a">Absolutely. ThoughtPilot helps students post about projects, courses, internships, and learning — the exact content recruiters look for. Many users land their first role from posts generated here. There's a dedicated Student pillar built for exactly this.</div></div>
-      <div class="faq-item"><div class="faq-q">Will posts actually sound like me?</div><div class="faq-a">Yes. The onboarding captures your tone, background, and goals. We score voice match on every draft — the target is 95%+ before you approve. You can retrain the co-pilot anytime to dial it in further.</div></div>
-      <div class="faq-item"><div class="faq-q">Can it help me apply for jobs?</div><div class="faq-a">Yes. The AI Career Suite reviews your CV for ATS keywords, matches it against any job description with a fit score, and helps you draft outreach messages to recruiters and hiring managers — all in one place.</div></div>
-      <div class="faq-item"><div class="faq-q">Do you post to LinkedIn automatically?</div><div class="faq-a">No — you stay in control. ThoughtPilot drafts, schedules, and analyses. You approve and publish. There are no surprise auto-posts. We believe in human-in-the-loop for your professional reputation.</div></div>
-      <div class="faq-item"><div class="faq-q">Can I change or cancel my plan?</div><div class="faq-a">Yes — upgrade, downgrade, or cancel anytime from your dashboard. No contracts, no cancellation fees. Annual plans are refunded pro-rata if cancelled in the first 30 days.</div></div>
-      <div class="faq-item"><div class="faq-q">Is my data private?</div><div class="faq-a">Your profile data, posts, and CV are never used to train shared models. Your voice profile belongs to you. We use enterprise-grade encryption at rest and in transit, and you can delete all your data at any time.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Who is ThoughtPilot built for?</div><div class="faq-a">Anyone serious about LinkedIn — students hunting their first internship, grads applying for jobs, engineers, designers, founders, marketers, PMs, consultants, recruiters, and senior leaders. If you have a career or you're building one, this is for you.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How is this different from ChatGPT?</div><div class="faq-a">ChatGPT writes generic posts. ThoughtPilot is trained on your role, industry, goals, and live trends — so output sounds like you on your best day, not a copywriter who's never met you. We score every draft for voice match before you approve.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">I'm a student with no work experience. Will it work?</div><div class="faq-a">Absolutely. ThoughtPilot helps students post about projects, courses, internships, and learning — the exact content recruiters look for. Many users land their first role from posts generated here. There's a dedicated Student pillar built for exactly this.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Will posts actually sound like me?</div><div class="faq-a">Yes. The onboarding captures your tone, background, and goals. We score voice match on every draft — the target is 95%+ before you approve. You can retrain the co-pilot anytime to dial it in further.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Can it help me apply for jobs?</div><div class="faq-a">Yes. The AI Career Suite reviews your CV for ATS keywords, matches it against any job description with a fit score, and helps you draft outreach messages to recruiters and hiring managers — all in one place.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Do you post to LinkedIn automatically?</div><div class="faq-a">No — you stay in control. ThoughtPilot drafts, schedules, and analyses. You approve and publish. There are no surprise auto-posts. We believe in human-in-the-loop for your professional reputation.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Can I change or cancel my plan?</div><div class="faq-a">Yes — upgrade, downgrade, or cancel anytime from your dashboard. No contracts, no cancellation fees. Annual plans are refunded pro-rata if cancelled in the first 30 days.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Is my data private?</div><div class="faq-a">Your profile data, posts, and CV are never used to train shared models. Your voice profile belongs to you. We use enterprise-grade encryption at rest and in transit, and you can delete all your data at any time.</div></div>
     </div>
   </div>
 </section>
@@ -754,6 +878,17 @@ footer { border-top: 1px solid var(--navy-border); padding: 60px 24px 40px; }
     </div>
   </div>
 </section>
+
+<!-- STICKY CTA -->
+<div class="sticky-cta" id="sticky-cta">
+  <div class="sticky-cta-text">
+    <strong>ThoughtPilot AI</strong> — Build your LinkedIn authority on autopilot.
+  </div>
+  <div class="sticky-cta-actions">
+    <a href="https://app.thoughtpilotai.com/signup?plan=free" class="btn-hp" style="padding:10px 22px;font-size:14px;">Start free →</a>
+    <button class="sticky-cta-close" onclick="document.getElementById('sticky-cta').remove()" aria-label="Dismiss">✕</button>
+  </div>
+</div>
 
 <!-- FOOTER -->
 <footer>
@@ -814,6 +949,7 @@ footer { border-top: 1px solid var(--navy-border); padding: 60px 24px 40px; }
 </footer>
 
 <script>
+  // ── Pricing toggle ───────────────────────────────────────────────────────
   const prices = {
     monthly: { s:19, p:49, ssub:'per month, billed monthly', psub:'per month, billed monthly' },
     annual:  { s:13, p:34, ssub:'per month, billed annually ($156/yr)', psub:'per month, billed annually ($408/yr)' }
@@ -827,10 +963,81 @@ footer { border-top: 1px solid var(--navy-border); padding: 60px 24px 40px; }
     document.getElementById('ssub').textContent = p.ssub;
     document.getElementById('psub').textContent = p.psub;
   }
+
+  // ── Navbar scroll ────────────────────────────────────────────────────────
+  const navbar = document.getElementById('navbar');
+  const stickyCta = document.getElementById('sticky-cta');
+  let stickyDismissed = false;
+
   window.addEventListener('scroll', () => {
-    document.getElementById('navbar').style.background =
-      window.scrollY > 40 ? 'rgba(10,15,30,0.98)' : 'rgba(10,15,30,0.85)';
+    const y = window.scrollY;
+    navbar.style.background = y > 40 ? 'rgba(10,15,30,0.98)' : 'rgba(10,15,30,0.85)';
+    // Show sticky bar after scrolling past hero (~600px)
+    if (stickyCta && !stickyDismissed) {
+      stickyCta.classList.toggle('visible', y > 600);
+    }
   });
+
+  // ── Mobile hamburger ─────────────────────────────────────────────────────
+  const hamburger = document.getElementById('hamburger');
+  const drawer    = document.getElementById('mobile-drawer');
+
+  hamburger.addEventListener('click', () => {
+    const isOpen = drawer.classList.toggle('open');
+    hamburger.classList.toggle('open', isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
+
+  function closeDrawer() {
+    drawer.classList.remove('open');
+    hamburger.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  // Close drawer on outside click
+  document.addEventListener('click', (e) => {
+    if (drawer.classList.contains('open') &&
+        !drawer.contains(e.target) &&
+        !hamburger.contains(e.target)) {
+      closeDrawer();
+    }
+  });
+
+  // ── FAQ accordion ────────────────────────────────────────────────────────
+  function toggleFaq(el) {
+    const item = el.parentElement;
+    const isOpen = item.classList.contains('open');
+    // Close all
+    document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+    // Open clicked (unless it was already open)
+    if (!isOpen) item.classList.add('open');
+  }
+
+  // ── Scroll animations (IntersectionObserver) ─────────────────────────────
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.fade-up').forEach((el, i) => {
+    // Stagger siblings in the same parent
+    const siblings = Array.from(el.parentElement.querySelectorAll('.fade-up'));
+    const idx = siblings.indexOf(el);
+    if (idx > 0 && idx <= 5) el.classList.add(`delay-${idx}`);
+    observer.observe(el);
+  });
+
+  // ── Sticky CTA dismiss ───────────────────────────────────────────────────
+  if (stickyCta) {
+    stickyCta.querySelector('.sticky-cta-close').addEventListener('click', () => {
+      stickyDismissed = true;
+      stickyCta.classList.remove('visible');
+    });
+  }
 </script>
 </body>
 </html>
