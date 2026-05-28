@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Security — ThoughtPilot AI</title>
+<meta name="description" content="How ThoughtPilot AI protects your data — encryption, authentication, and responsible disclosure." />
+<meta name="theme-color" content="#0A0F1E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --navy: #0A0F1E;
+  --navy-mid: #111827;
+  --navy-card: #151D2E;
+  --navy-border: rgba(255,255,255,0.08);
+  --accent: #2DD4BF;
+  --accent-dim: rgba(45,212,191,0.12);
+  --blue: #3B82F6;
+  --blue-dim: rgba(59,130,246,0.12);
+  --green: #22c55e;
+  --green-dim: rgba(34,197,94,0.12);
+  --text-primary: rgba(255,255,255,0.95);
+  --text-secondary: rgba(255,255,255,0.6);
+  --text-muted: rgba(255,255,255,0.35);
+  --font-display: 'Sora', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+}
+html { scroll-behavior: smooth; }
+body {
+  background: var(--navy); color: var(--text-primary);
+  font-family: var(--font-body); font-size: 16px; line-height: 1.6;
+  overflow-x: hidden; -webkit-font-smoothing: antialiased;
+}
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 48px; height: 68px;
+  background: rgba(10,15,30,0.98); backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--navy-border);
+}
+.nav-logo {
+  display: flex; align-items: center; gap: 10px;
+  font-family: var(--font-display); font-weight: 600; font-size: 17px;
+  color: var(--text-primary); text-decoration: none;
+}
+.nav-logo-mark {
+  width: 32px; height: 32px; border-radius: 8px;
+  background: linear-gradient(135deg, var(--accent) 0%, #0EA5E9 100%);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 700; color: #0A0F1E;
+}
+.nav-back {
+  font-size: 14px; color: var(--text-secondary); text-decoration: none; transition: color 0.2s;
+}
+.nav-back:hover { color: var(--text-primary); }
+.page-wrap { max-width: 760px; margin: 0 auto; padding: 120px 24px 80px; }
+.page-label {
+  font-size: 12px; font-weight: 600; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 16px;
+}
+.page-title {
+  font-family: var(--font-display); font-size: clamp(32px, 5vw, 52px);
+  font-weight: 700; line-height: 1.1; letter-spacing: -.025em; margin-bottom: 12px;
+}
+.page-meta {
+  font-size: 14px; color: var(--text-muted); margin-bottom: 56px;
+  padding-bottom: 32px; border-bottom: 1px solid var(--navy-border);
+}
+.doc-body h2 {
+  font-family: var(--font-display); font-size: 20px; font-weight: 600;
+  margin: 44px 0 14px; color: var(--text-primary);
+}
+.doc-body p { color: var(--text-secondary); margin-bottom: 16px; line-height: 1.75; }
+.doc-body ul { color: var(--text-secondary); padding-left: 20px; margin-bottom: 16px; line-height: 1.75; }
+.doc-body li { margin-bottom: 6px; }
+.doc-body a { color: var(--accent); text-decoration: none; }
+.doc-body a:hover { text-decoration: underline; }
+.doc-body strong { color: var(--text-primary); font-weight: 600; }
+
+/* Security measure cards */
+.sec-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 16px; margin: 32px 0;
+}
+.sec-card {
+  background: var(--navy-card); border: 1px solid var(--navy-border);
+  border-radius: var(--radius-md); padding: 24px;
+}
+.sec-icon {
+  width: 40px; height: 40px; border-radius: var(--radius-sm);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; margin-bottom: 14px;
+}
+.sec-icon.t  { background: var(--accent-dim); }
+.sec-icon.b  { background: var(--blue-dim); }
+.sec-icon.g  { background: var(--green-dim); }
+.sec-icon.p  { background: rgba(139,92,246,0.12); }
+.sec-card h3 {
+  font-family: var(--font-display); font-size: 15px; font-weight: 600;
+  margin-bottom: 8px; color: var(--text-primary);
+}
+.sec-card p { font-size: 14px; color: var(--text-secondary); margin-bottom: 0; line-height: 1.6; }
+
+/* Disclosure box */
+.disclosure-box {
+  background: var(--navy-card); border: 1px solid rgba(45,212,191,0.2);
+  border-radius: var(--radius-md); padding: 28px 32px; margin-top: 48px;
+}
+.disclosure-box h2 { margin-top: 0; }
+.disclosure-box p { font-size: 15px; }
+
+footer { border-top: 1px solid var(--navy-border); padding: 40px 48px; }
+.footer-inner {
+  max-width: 1120px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 16px;
+}
+.footer-copy { font-size: 13px; color: var(--text-muted); }
+.footer-legal { display: flex; gap: 24px; }
+.footer-legal a { font-size: 13px; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+.footer-legal a:hover { color: var(--text-primary); }
+
+@media (max-width: 640px) {
+  nav { padding: 0 20px; }
+  .page-wrap { padding-top: 100px; }
+  .sec-grid { grid-template-columns: 1fr; }
+  footer { padding: 32px 20px; }
+  .footer-inner { flex-direction: column; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">
+    <div class="nav-logo-mark">TP</div>ThoughtPilot AI
+  </a>
+  <a href="/" class="nav-back">← Back to home</a>
+</nav>
+
+<div class="page-wrap">
+  <p class="page-label">Trust &amp; Safety</p>
+  <h1 class="page-title">Security</h1>
+  <p class="page-meta">Last updated: 28 May 2026</p>
+
+  <div class="doc-body">
+
+    <p>Security is core to how we built ThoughtPilot. Your profile, CV, and posts are sensitive professional data — we treat them that way. Below is a plain-English overview of the measures we take.</p>
+
+    <div class="sec-grid">
+      <div class="sec-card">
+        <div class="sec-icon t">🔒</div>
+        <h3>Encryption in transit</h3>
+        <p>All traffic between your browser and our servers is encrypted with TLS 1.2+. We enforce HTTPS across every domain — <code>thoughtpilotai.com</code>, <code>app.thoughtpilotai.com</code>, <code>careers.thoughtpilotai.com</code>, and <code>api.thoughtpilotai.com</code>.</p>
+      </div>
+      <div class="sec-card">
+        <div class="sec-icon b">🗄️</div>
+        <h3>Encryption at rest</h3>
+        <p>Your data is stored in a managed PostgreSQL database on Railway with encryption at rest enabled. Backups are also encrypted.</p>
+      </div>
+      <div class="sec-card">
+        <div class="sec-icon g">🪙</div>
+        <h3>Authentication</h3>
+        <p>Sessions use signed JWT tokens stored in a secure, HTTP-only cookie (<code>tp_token</code>). Tokens cannot be read by JavaScript, expire after 7 days, and are scoped to <code>.thoughtpilotai.com</code>.</p>
+      </div>
+      <div class="sec-card">
+        <div class="sec-icon p">🔑</div>
+        <h3>Password storage</h3>
+        <p>Passwords are hashed with bcrypt (cost factor 12) before storage. We never store plaintext passwords and cannot retrieve your password — only reset it.</p>
+      </div>
+      <div class="sec-card">
+        <div class="sec-icon t">💳</div>
+        <h3>Payment security</h3>
+        <p>We never handle or store card numbers. All payments are processed by Paddle, a PCI-DSS compliant payment provider. ThoughtPilot stores only your Paddle customer ID and subscription status.</p>
+      </div>
+      <div class="sec-card">
+        <div class="sec-icon b">🔐</div>
+        <h3>API security</h3>
+        <p>All authenticated API routes require a valid session token verified server-side on every request. External API keys (AI providers, email, payments) are stored as environment variables — never in code or the database.</p>
+      </div>
+      <div class="sec-card">
+        <div class="sec-icon g">🚦</div>
+        <h3>Rate limiting</h3>
+        <p>API endpoints are protected against brute-force and abuse through rate limiting. Failed login attempts are throttled. Usage limits are enforced per account at the server level.</p>
+      </div>
+      <div class="sec-card">
+        <div class="sec-icon p">📧</div>
+        <h3>Password reset</h3>
+        <p>Password reset links use single-use cryptographic tokens with a 30-minute expiry. Tokens are invalidated immediately after use and cannot be reused.</p>
+      </div>
+    </div>
+
+    <h2>Infrastructure</h2>
+    <p>ThoughtPilot runs on the following managed infrastructure providers, each with their own security certifications:</p>
+    <ul>
+      <li><strong>Railway</strong> — backend API and PostgreSQL database. SOC 2 compliant hosting.</li>
+      <li><strong>Vercel</strong> — frontend hosting for <code>app.thoughtpilotai.com</code> and <code>careers.thoughtpilotai.com</code>. SOC 2 Type II certified.</li>
+      <li><strong>Resend</strong> — transactional email delivery.</li>
+      <li><strong>Paddle</strong> — payment processing. PCI-DSS Level 1 certified.</li>
+    </ul>
+
+    <h2>Data Isolation</h2>
+    <p>All database queries are parameterised to prevent SQL injection. User data is isolated by <code>user_id</code> on every query — you cannot access another user's data. The main app and Career Suite share the same backend but maintain separate usage quotas and access controls.</p>
+
+    <h2>What We Don't Do</h2>
+    <ul>
+      <li>We do not access your LinkedIn account or credentials.</li>
+      <li>We do not store your CV as a file — only as processed text within your profile.</li>
+      <li>We do not use your data to train shared AI models.</li>
+      <li>We do not use your data for advertising.</li>
+    </ul>
+
+    <h2>Incident Response</h2>
+    <p>In the event of a security incident that affects your data, we will notify you by email within 72 hours of becoming aware of it, in accordance with applicable data protection laws. Notifications will be sent to the email address on your account.</p>
+
+    <div class="disclosure-box">
+      <h2>Responsible Disclosure</h2>
+      <p>If you discover a security vulnerability in ThoughtPilot, we ask that you report it to us privately before making it public. Please email <a href="mailto:security@thoughtpilotai.com">security@thoughtpilotai.com</a> with a description of the issue and steps to reproduce it.</p>
+      <p style="margin-top:12px">We commit to: acknowledging your report within 48 hours, keeping you informed of our progress, and not taking legal action against researchers who report in good faith. We do not currently operate a paid bug bounty programme, but we will acknowledge your contribution publicly if you wish.</p>
+    </div>
+
+    <h2>Contact</h2>
+    <p>Security reports: <a href="mailto:security@thoughtpilotai.com">security@thoughtpilotai.com</a><br>
+    General enquiries: <a href="mailto:hello@thoughtpilotai.com">hello@thoughtpilotai.com</a></p>
+
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <span class="footer-copy">© 2026 ThoughtPilot AI. All rights reserved.</span>
+    <div class="footer-legal">
+      <a href="/privacy">Privacy</a>
+      <a href="/terms">Terms</a>
+      <a href="/cookies">Cookies</a>
+      <a href="/security">Security</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

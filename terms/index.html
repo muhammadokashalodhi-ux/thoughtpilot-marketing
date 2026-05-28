@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Terms of Service — ThoughtPilot AI</title>
+<meta name="description" content="ThoughtPilot AI Terms of Service — the rules for using our platform." />
+<meta name="theme-color" content="#0A0F1E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --navy: #0A0F1E;
+  --navy-mid: #111827;
+  --navy-card: #151D2E;
+  --navy-border: rgba(255,255,255,0.08);
+  --navy-border-hover: rgba(255,255,255,0.16);
+  --accent: #2DD4BF;
+  --accent-dim: rgba(45,212,191,0.12);
+  --blue: #3B82F6;
+  --text-primary: rgba(255,255,255,0.95);
+  --text-secondary: rgba(255,255,255,0.6);
+  --text-muted: rgba(255,255,255,0.35);
+  --font-display: 'Sora', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+}
+html { scroll-behavior: smooth; }
+body {
+  background: var(--navy);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 48px; height: 68px;
+  background: rgba(10,15,30,0.98);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--navy-border);
+}
+.nav-logo {
+  display: flex; align-items: center; gap: 10px;
+  font-family: var(--font-display); font-weight: 600; font-size: 17px;
+  color: var(--text-primary); text-decoration: none;
+}
+.nav-logo-mark {
+  width: 32px; height: 32px; border-radius: 8px;
+  background: linear-gradient(135deg, var(--accent) 0%, #0EA5E9 100%);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 700; color: #0A0F1E;
+}
+.nav-back {
+  font-size: 14px; color: var(--text-secondary); text-decoration: none;
+  display: flex; align-items: center; gap: 6px; transition: color 0.2s;
+}
+.nav-back:hover { color: var(--text-primary); }
+.page-wrap {
+  max-width: 760px; margin: 0 auto;
+  padding: 120px 24px 80px;
+}
+.page-label {
+  font-size: 12px; font-weight: 600; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 16px;
+}
+.page-title {
+  font-family: var(--font-display); font-size: clamp(32px, 5vw, 52px);
+  font-weight: 700; line-height: 1.1; letter-spacing: -.025em;
+  margin-bottom: 12px;
+}
+.page-meta {
+  font-size: 14px; color: var(--text-muted); margin-bottom: 56px;
+  padding-bottom: 32px; border-bottom: 1px solid var(--navy-border);
+}
+.doc-body h2 {
+  font-family: var(--font-display); font-size: 20px; font-weight: 600;
+  margin: 44px 0 14px; color: var(--text-primary);
+}
+.doc-body h3 {
+  font-size: 16px; font-weight: 600; margin: 28px 0 10px;
+  color: var(--text-primary);
+}
+.doc-body p {
+  color: var(--text-secondary); margin-bottom: 16px; line-height: 1.75;
+}
+.doc-body ul, .doc-body ol {
+  color: var(--text-secondary); padding-left: 20px;
+  margin-bottom: 16px; line-height: 1.75;
+}
+.doc-body li { margin-bottom: 6px; }
+.doc-body a { color: var(--accent); text-decoration: none; }
+.doc-body a:hover { text-decoration: underline; }
+.doc-body strong { color: var(--text-primary); font-weight: 600; }
+.info-box {
+  background: var(--navy-card); border: 1px solid var(--navy-border);
+  border-radius: var(--radius-md); padding: 20px 24px; margin-bottom: 32px;
+}
+.info-box p { margin-bottom: 0; }
+footer {
+  border-top: 1px solid var(--navy-border);
+  padding: 40px 48px;
+}
+.footer-inner {
+  max-width: 1120px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 16px;
+}
+.footer-copy { font-size: 13px; color: var(--text-muted); }
+.footer-legal { display: flex; gap: 24px; }
+.footer-legal a { font-size: 13px; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+.footer-legal a:hover { color: var(--text-primary); }
+@media (max-width: 640px) {
+  nav { padding: 0 20px; }
+  .page-wrap { padding-top: 100px; }
+  footer { padding: 32px 20px; }
+  .footer-inner { flex-direction: column; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">
+    <div class="nav-logo-mark">TP</div>ThoughtPilot AI
+  </a>
+  <a href="/" class="nav-back">← Back to home</a>
+</nav>
+
+<div class="page-wrap">
+  <p class="page-label">Legal</p>
+  <h1 class="page-title">Terms of Service</h1>
+  <p class="page-meta">Last updated: 28 May 2026 &nbsp;·&nbsp; Effective: 28 May 2026</p>
+
+  <div class="info-box">
+    <p><strong>Plain-English summary:</strong> Use ThoughtPilot honestly, don't misuse the AI, own what you create, pay your subscription if you're on a paid plan, and don't hold us liable for how you use the output. Full details below.</p>
+  </div>
+
+  <div class="doc-body">
+
+    <h2>1. Agreement</h2>
+    <p>By creating an account or using any part of ThoughtPilot AI ("Service"), you agree to these Terms of Service ("Terms"). If you do not agree, do not use the Service. These Terms form a binding contract between you and ThoughtPilot AI, operated by Muhammad Okasha, Dubai, UAE ("ThoughtPilot", "we", "us").</p>
+
+    <h2>2. Eligibility</h2>
+    <p>You must be at least 16 years old to use the Service. By using it, you confirm you meet this requirement and have the legal capacity to enter into this agreement.</p>
+
+    <h2>3. Your Account</h2>
+    <ul>
+      <li>You are responsible for keeping your password secure and for all activity under your account.</li>
+      <li>You must provide accurate information when registering and keep it up to date.</li>
+      <li>You may not share your account or allow others to access the Service through your credentials.</li>
+      <li>Notify us immediately at <a href="mailto:hello@thoughtpilotai.com">hello@thoughtpilotai.com</a> if you suspect unauthorised access.</li>
+      <li>During early access, account creation requires a valid invite code.</li>
+    </ul>
+
+    <h2>4. The Service</h2>
+    <p>ThoughtPilot provides AI-assisted tools for LinkedIn content creation, CV analysis, job matching, and career planning. The Service is provided "as-is" and features may change over time.</p>
+    <p><strong>AI-generated content:</strong> posts and analysis produced by ThoughtPilot are suggestions, not advice. You are responsible for reviewing, editing, and deciding whether to publish any content generated by the Service. We do not guarantee accuracy, completeness, or fitness for purpose of any AI output.</p>
+
+    <h2>5. Acceptable Use</h2>
+    <p>You may use the Service only for lawful purposes and in accordance with these Terms. You must not:</p>
+    <ul>
+      <li>Use the Service to generate spam, misleading content, or content that violates LinkedIn's terms of service.</li>
+      <li>Attempt to reverse-engineer, scrape, or extract the underlying AI models or prompts.</li>
+      <li>Use automated tools to access the Service beyond normal feature use (e.g., API scraping).</li>
+      <li>Share your account or resell access to the Service without our written permission.</li>
+      <li>Upload content that is illegal, defamatory, or infringes third-party intellectual property rights.</li>
+      <li>Attempt to circumvent plan limits or billing controls.</li>
+      <li>Use the Service in a way that could harm other users or the integrity of the platform.</li>
+    </ul>
+    <p>We reserve the right to suspend or terminate accounts that violate these rules, with or without notice.</p>
+
+    <h2>6. Plans, Billing, and Refunds</h2>
+
+    <h3>6.1 Plans</h3>
+    <p>ThoughtPilot offers Free, Starter ($19/month or $182.40/year), and Pro ($49/month or $470.40/year) plans. Feature limits for each plan are described on the <a href="/#pricing">Pricing page</a>.</p>
+
+    <h3>6.2 Billing</h3>
+    <p>Paid plans are billed in advance through Paddle, our payment processor. By subscribing, you authorise Paddle to charge your payment method on a recurring basis until you cancel. All prices are in USD and exclusive of any applicable taxes, which Paddle calculates and collects automatically.</p>
+
+    <h3>6.3 Cancellation</h3>
+    <p>You may cancel your subscription at any time from your billing dashboard. Cancellation takes effect at the end of the current billing period — you retain access until then. We do not pro-rate partial periods on cancellation.</p>
+
+    <h3>6.4 Refunds</h3>
+    <p>Annual plans cancelled within 30 days of purchase are eligible for a pro-rata refund for unused months. Monthly plans are not refunded once the billing period has started. To request a refund, contact <a href="mailto:hello@thoughtpilotai.com">hello@thoughtpilotai.com</a>.</p>
+
+    <h3>6.5 Failed payments</h3>
+    <p>If a payment fails, we will notify you and your account may be downgraded to the Free plan after a grace period. You can update your payment method at any time through the billing portal.</p>
+
+    <h3>6.6 Beta access</h3>
+    <p>Invite-code beta accounts receive enhanced access at no charge. When the beta period closes, beta users will be offered a discounted transition plan. If not taken up, accounts will revert to the Free plan. Beta access does not create any obligation on our part to maintain specific features or limits.</p>
+
+    <h2>7. Intellectual Property</h2>
+
+    <h3>7.1 Your content</h3>
+    <p>You retain ownership of all content you provide to ThoughtPilot — your profile data, CV, and the posts you create. By using the Service, you grant us a limited licence to process your content solely to provide the Service to you.</p>
+
+    <h3>7.2 AI-generated output</h3>
+    <p>Posts and analysis generated by the Service using your inputs are assigned to you. You are free to use, edit, and publish them as you see fit, subject to applicable laws and LinkedIn's terms.</p>
+
+    <h3>7.3 ThoughtPilot IP</h3>
+    <p>The ThoughtPilot platform, brand, code, and design are our intellectual property. Nothing in these Terms transfers ownership of them to you.</p>
+
+    <h2>8. Disclaimers</h2>
+    <p>The Service is provided <strong>"as is"</strong> without warranties of any kind, express or implied, including but not limited to warranties of merchantability, fitness for a particular purpose, or non-infringement.</p>
+    <p>We do not guarantee that AI-generated content will be accurate, appropriate, or free from errors. We are not responsible for how you use generated content, including any consequences of publishing it on LinkedIn or elsewhere.</p>
+    <p>We do not guarantee uninterrupted availability of the Service.</p>
+
+    <h2>9. Limitation of Liability</h2>
+    <p>To the maximum extent permitted by applicable law, ThoughtPilot's total liability to you for any claim arising from these Terms or use of the Service shall not exceed the amount you paid us in the 12 months preceding the claim.</p>
+    <p>We are not liable for indirect, incidental, special, consequential, or punitive damages, including loss of profits, data, or goodwill.</p>
+
+    <h2>10. Termination</h2>
+    <p>You may close your account at any time from Settings. We may suspend or terminate your account if you breach these Terms, or discontinue the Service with 30 days' notice. On termination, your right to use the Service ceases immediately and your data will be deleted in accordance with our <a href="/privacy">Privacy Policy</a>.</p>
+
+    <h2>11. Changes to the Service or Terms</h2>
+    <p>We may update these Terms at any time. For material changes, we will give at least 14 days' notice by email. Continued use of the Service after the effective date constitutes acceptance of the updated Terms.</p>
+
+    <h2>12. Governing Law</h2>
+    <p>These Terms are governed by the laws of the United Arab Emirates. Any disputes shall be subject to the exclusive jurisdiction of the courts of Dubai, UAE.</p>
+
+    <h2>13. Contact</h2>
+    <p>Questions about these Terms: <a href="mailto:hello@thoughtpilotai.com">hello@thoughtpilotai.com</a></p>
+    <p>ThoughtPilot AI · Dubai, United Arab Emirates</p>
+
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <span class="footer-copy">© 2026 ThoughtPilot AI. All rights reserved.</span>
+    <div class="footer-legal">
+      <a href="/privacy">Privacy</a>
+      <a href="/terms">Terms</a>
+      <a href="/cookies">Cookies</a>
+      <a href="/security">Security</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
